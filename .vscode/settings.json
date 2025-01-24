@@ -1,0 +1,33 @@
+{
+    // Disable mypy extention if you have it enabled on this workspace
+    "pylint.args": [
+        // W0236: overriding __call__ method with async
+        "--disable=missing-module-docstring,missing-function-docstring,missing-class-docstring,C0301,W0236,W1203,E1101,R0903,R0913,R0914,W0212,C0103,C0305,E0213,W0613"
+    ],
+    "flake8.args": [
+        // Disabled e128 and e122 to not cause issues in alembic migrations
+        "--ignore=E203,E266,E501,W503,E128,E122,W391"
+    ],
+    "ruff.format.args": [
+        "--config=ruff.toml"
+    ],
+    "ruff.lint.args": [
+        "--config=ruff.toml"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always",
+            "source.fixAll": "explicit"
+        }
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "python.testing.pytestArgs": [
+        "backend"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.analysis.typeCheckingMode": "standard",
+}

@@ -1,0 +1,32 @@
+extend-exclude = [".venv", "alembic"]
+
+line-length = 120
+
+[format]
+docstring-code-format = true
+
+[lint]
+select = ["ALL"]
+
+ignore = ["E501",
+    "ASYNC230",
+    "ERA001",
+    "D100",
+    "D103",
+    "D102",
+    "D101",
+    "S101",
+    "D104",
+    "FA100",
+    "D400",
+    "D415",
+    "D401",
+    "D105",
+    "D106",
+    "TRY301",
+    "D107",
+    "FA102",
+]
+
+[lint.isort]
+combine-as-imports = true

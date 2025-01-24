@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "run backend",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "backend.main:app",
+                "--reload"
+            ],
+            "cwd": "${workspaceFolder}/",
+            "jinja": true,
+            "envFile": "${workspaceFolder}/.env",
+            "preLaunchTask": "activate:venv"
+        },
+        {
+            "name": "run python script",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "preLaunchTask": "activate:venv"
+        },
+        {
+            "name": "run ts script",
+            "request": "launch",
+            "runtimeExecutable": "ts-node",
+            "runtimeArgs": [
+                "${file}"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "outputCapture": "std",
+            "cwd": "${workspaceFolder}/frontend"
+        }
+    ]
+}
