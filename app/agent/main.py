@@ -1,4 +1,4 @@
-import uuid
+from datetime import UTC, datetime
 from typing import TypedDict, cast
 
 from browser_use import Agent, AgentHistoryList, Browser, BrowserConfig
@@ -32,11 +32,11 @@ class AgentHistoryMedia(TypedDict):
 
 class WebExplorerAgent:
     def __init__(self) -> None:
-        run_id = str(uuid.uuid4())
+        run_id = datetime.now(UTC).strftime("%Y-%m-%d_%H-%M")
         self.logger = base_logger.getChild(self.__class__.__name__)
         self.CONVERSATION_FILE = f"{AGENT_LOG_FOLDER}/conversation_{run_id}"
         self.COOKIES_FILE = f"{AGENT_LOG_FOLDER}/cookies_{run_id}.json"
-        self.AGENT_HISTORY_FILE_NAME = f"agent_history_{run_id}"
+        self.AGENT_HISTORY_FILE_NAME = f"{AGENT_LOG_FOLDER}/agent_history_{run_id}"
         self.TRACE_FOLDER = f"{AGENT_LOG_FOLDER}/trace_{run_id}"
         self.AGENT_RECORDING_FOLDER = f"{AGENT_LOG_FOLDER}/agent_recordings_{run_id}"
 
@@ -52,7 +52,7 @@ class WebExplorerAgent:
             save_conversation_path=self.CONVERSATION_FILE,
             browser_context=browser_context,
             system_prompt_class=create_system_prompt_class(prompt=prompt),
-            generate_gif=False,  # Generate the gif manually in the execute method
+            generate_gif=False,  # Generate the gif manually in the _create_history_media method
             controller=browser_controller,
         )
 
@@ -61,12 +61,7 @@ class WebExplorerAgent:
         return await page.screenshot()
 
     async def _create_history_media(self, *, title: str, context: BrowserContext) -> HistoryMedia | None:
-        """Create a GIF from the browser agent's history.
-
-        Returns:
-            AgentHistoryMedia: Screenshot URL, GIF URL and Video URL
-
-        """
+        """Create a GIF from the browser agent's history."""
         if not self.browser_agent:
             msg = "Browser agent is not initialized"
             self.logger.error(msg)
@@ -114,6 +109,7 @@ class WebExplorerAgent:
             trace_path=self.TRACE_FOLDER,
             save_recording_path=self.AGENT_RECORDING_FOLDER,
             locale="en-GB",
+            highlight_elements=False,
         )
         async with await browser.new_context(config=browser_context_config) as context:
             self.browser_agent = self._create_browser_agent(
