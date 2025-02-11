@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "operator": "./app/operator/graph.py:graph"
+  },
+  "env": ".env"
+}

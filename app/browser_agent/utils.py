@@ -11,6 +11,9 @@ def create_system_prompt_class(prompt: str) -> type[SystemPrompt]:
             existing_rules = super().important_rules()
             custom_rule = f"""
 9. MOST IMPORTANT RULE:
+Consider using input_text_using_coordinates action to input the text into the input box.
+Always scroll down to get the complete information before returning the output.
+
 {prompt}
 """
             return f"{existing_rules}\n{custom_rule}"

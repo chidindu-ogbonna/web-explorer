@@ -29,7 +29,6 @@ x: The x (pixels from the left edge) coordinates to move the mouse to. Required 
 y: The y (pixels from the top edge) coordinates to move the mouse to. Required to determine where to click.
 text: The text to input into the page.""",
     param_model=ActionInputTextCoordinatesParam,
-    requires_browser=True,
 )
 async def input_text_using_coordinates(
     params: ActionInputTextCoordinatesParam,
@@ -69,11 +68,7 @@ class ActionReadWebPageContentParam(BaseModel):
     pass
 
 
-@browser_controller.action(
-    "Read web page content",
-    param_model=None,
-    requires_browser=True,
-)
+@browser_controller.action("Read web page content", param_model=None)
 async def read_page_content(browser: BrowserUseBrowserContext) -> ActionResult:
     # NOTE: evaluate may* not work in headless mode
     page = await browser.get_current_page()

@@ -14,25 +14,25 @@ if TYPE_CHECKING:
 
 
 class LLMModel:
-    def __init__(self, *, model_name: OpenAIModelName | AnthropicModelName) -> None:
+    def __init__(self, *, name: OpenAIModelName | AnthropicModelName) -> None:
         """Initialize the LLM model."""
         self.logger = base_logger.getChild(self.__class__.__name__)
 
         model: BaseChatModel
         provider: str
 
-        if isinstance(model_name, OpenAIModelName):
+        if isinstance(name, OpenAIModelName):
             provider = ModelProviders.OPENAI
-            model = ChatOpenAI(model=model_name)
-        elif isinstance(model_name, AnthropicModelName):
+            model = ChatOpenAI(model=name)
+        elif isinstance(name, AnthropicModelName):
             provider = ModelProviders.ANTHROPIC
-            model = ChatAnthropic(model=model_name)  # pyright: ignore[reportCallIssue]
+            model = ChatAnthropic(model=name)  # pyright: ignore[reportCallIssue]
         else:
-            msg = f"Model name {model_name} is not a supported model type"
+            msg = f"Model name {name} is not a supported model type"
             self.logger.error(msg)
             raise TypeError(msg)
 
-        self.llm_model_configuration = {"provider": provider, "model": model_name}
+        self.llm_model_configuration = {"provider": provider, "model": name}
         self.model = model
 
     async def call(self, *, messages: list[HumanMessage]) -> str | list[str | dict]:
@@ -53,7 +53,7 @@ class LLMModel:
         """
         if prompt is None:
             prompt = "Perform OCR on the following images and extract the text content."
-        llm_model = cls(ocr=True)
+        llm_model = cls(name=OpenAIModelName.GPT_4O)
         image_data = [{"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{img}"}} for img in images]
         message = HumanMessage(content=[{"type": "text", "text": prompt}, *image_data])
         return cast(str, await llm_model.call(messages=[message]))

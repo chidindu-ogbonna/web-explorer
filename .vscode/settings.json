@@ -8,12 +8,8 @@
         // Disabled e128 and e122 to not cause issues in alembic migrations
         "--ignore=E203,E266,E501,W503,E128,E122,W391"
     ],
-    "ruff.format.args": [
-        "--config=ruff.toml"
-    ],
-    "ruff.lint.args": [
-        "--config=ruff.toml"
-    ],
+    "ruff.configuration": "ruff.toml",
+    "ruff.lineLength": 120,
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.formatOnSave": true,
@@ -29,5 +25,5 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.analysis.typeCheckingMode": "standard",
+    "python.analysis.typeCheckingMode": "strict",
 }

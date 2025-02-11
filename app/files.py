@@ -375,7 +375,7 @@ class FileUtils:
             for screenshot in screenshots_to_append:
                 images.append(
                     FileUtils._create_frame(
-                        text="",
+                        text="Final output",
                         screenshot=FileUtils.encode_image_to_base64(screenshot)
                         if isinstance(screenshot, bytes)
                         else screenshot,

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v10/terminal-keeper.json",
+  "theme": "tribe",
+  "active": "default",
+  "activateOnStartup": true,
+  "keepExistingTerminals": false,
+  "sessions": {
+    "default": [
+      {
+        "name": "home",
+        "autoExecuteCommands": true,
+        "icon": "home",
+        "color": "terminal.ansiGreen"
+      },
+      {
+        "name": "langgraph",
+        "commands": [
+          "langgraph dev"
+        ],
+        "icon": "graph",
+        "color": "terminal.ansiGreen",
+        "autoExecuteCommands": true
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 import asyncio
 import json
 
-from app.agent.main import WebExplorerAgent
+from app.browser_agent.main import BrowserAgent
 from app.logger import base_logger
 
 if __name__ == "__main__":
@@ -11,7 +11,7 @@ if __name__ == "__main__":
     title = ""
     instruction = ""
 
-    agent = WebExplorerAgent()
+    agent = BrowserAgent()
     output = asyncio.run(
         agent.run(prompt=prompt, title=title, instruction=instruction),
     )

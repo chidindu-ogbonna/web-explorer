@@ -181,3 +181,6 @@ logs/
 
 agent_history_*
 prompts.py
+snippets/
+
+.langgraph_api/
