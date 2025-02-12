@@ -38,9 +38,8 @@ This is a web explorer agent that can be used to explore the web and get informa
     python -m app.main
     ```
 
-## LangGraph
+## LangSmith
 
 ```bash
 langgraph dev
 ```
-

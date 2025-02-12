@@ -1,13 +1,13 @@
 import asyncio
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, TypedDict, cast
 
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 
-from app.files import FileUtils
-from app.logger import base_logger
-from app.model_types import AnthropicModelName, ModelProviders, OpenAIModelName
+from app.core.files import FileUtils
+from app.core.logger import base_logger
+from app.core.model_types import AnthropicModelName, ModelProviders, OpenAIModelName
 
 if TYPE_CHECKING:
     from langchain_core.language_models.chat_models import BaseChatModel
@@ -38,6 +38,9 @@ class LLMModel:
     async def call(self, *, messages: list[HumanMessage]) -> str | list[str | dict]:
         response = await self.model.ainvoke(messages)
         return response.content
+
+    async def call_with_structured_output(self, *, messages: list[HumanMessage], schema: type[TypedDict]) -> dict:
+        return await self.model.with_structured_output(schema).ainvoke(messages)
 
     @classmethod
     async def do_ocr(cls, *, images: list[str], prompt: str | None = None) -> str:

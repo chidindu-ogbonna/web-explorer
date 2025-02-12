@@ -1,5 +1,3 @@
-"""Define the state structures for the agent."""
-
 from browser_use.browser.browser import BrowserContext
 from langgraph.graph import MessagesState
 

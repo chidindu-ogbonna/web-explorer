@@ -10,7 +10,7 @@ from browser_use.agent.views import AgentHistoryList
 from PIL import Image, ImageDraw, ImageFont
 from pydantic import HttpUrl, TypeAdapter
 
-from app.logger import base_logger
+from app.core.logger import base_logger
 
 logger = base_logger.getChild(__name__)
 

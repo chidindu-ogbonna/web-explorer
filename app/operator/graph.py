@@ -1,14 +1,15 @@
 from typing import TYPE_CHECKING, Literal
 
-from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command
 from typing_extensions import TypedDict
 
-from app.browser_agent.main import BrowserAgent, BrowserAgentOutput
-from app.logger import base_logger
-from app.model_types import AnthropicModelName
+from app.core.llm import LLMModel
+from app.core.logger import base_logger
+from app.core.model_types import AnthropicModelName
+from app.operator.browser_agent.main import BrowserAgent, BrowserAgentOutput
+from app.operator.configuration import Configuration
 from app.operator.state import BrowserState
 
 logger = base_logger.getChild(__name__)
@@ -37,12 +38,13 @@ class Router(TypedDict):
     next: Literal[*options]
 
 
-llm = ChatAnthropic(model=AnthropicModelName.CLAUDE_3_5_LATEST)
+llm = LLMModel(name=AnthropicModelName.CLAUDE_3_5_LATEST)
 
 
 async def supervisor(state: BrowserState) -> Command[Literal[*workers, "__end__"]]:
     messages = [{"role": "system", "content": base_system_prompt}] + state["messages"]
-    response = llm.with_structured_output(Router).invoke(messages)
+    response = await llm.call_with_structured_output(messages=messages, schema=Router)
+    # response = llm.with_structured_output(Router).invoke(messages)
     goto = response["next"]
     if goto == "FINISH":
         browser_context: BrowserContext | None = state.get("browser_context")
@@ -104,8 +106,7 @@ async def act(state: BrowserState) -> Command[Literal["supervisor"]]:
     )
 
 
-# builder = StateGraph(State, input=InputState, config_schema=Configuration)
-builder = StateGraph(BrowserState)
+builder = StateGraph(BrowserState, config_schema=Configuration)
 builder.add_edge(START, "supervisor")
 builder.add_node("supervisor", supervisor)
 builder.add_node("authenticate", authenticate)

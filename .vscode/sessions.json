@@ -1,16 +1,17 @@
 {
   "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v10/terminal-keeper.json",
-  "theme": "tribe",
+  "theme": "inkwell",
   "active": "default",
   "activateOnStartup": true,
   "keepExistingTerminals": false,
   "sessions": {
     "default": [
       {
+        "commands": [],
         "name": "home",
         "autoExecuteCommands": true,
         "icon": "home",
-        "color": "terminal.ansiGreen"
+        "color": "terminal.ansiMagenta"
       },
       {
         "name": "langgraph",

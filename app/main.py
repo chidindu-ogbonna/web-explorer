@@ -1,8 +1,8 @@
 import asyncio
 import json
 
-from app.browser_agent.main import BrowserAgent
-from app.logger import base_logger
+from app.core.logger import base_logger
+from app.operator.browser_agent.main import BrowserAgent
 
 if __name__ == "__main__":
     logger = base_logger.getChild(__name__)

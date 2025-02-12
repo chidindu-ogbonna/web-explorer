@@ -5,12 +5,12 @@ from browser_use import Agent, AgentHistoryList, Browser, BrowserConfig
 from browser_use.browser.context import BrowserContext, BrowserContextConfig
 from browser_use.browser.views import TabInfo
 
-from app.browser_agent.browser_controller import browser_controller
-from app.browser_agent.utils import AGENT_LOG_FOLDER, create_system_prompt_class
-from app.files import FileUtils, GIFParams, HistoryMedia
-from app.llm import LLMModel
-from app.logger import base_logger
-from app.model_types import AnthropicModelName
+from app.core.files import FileUtils, GIFParams, HistoryMedia
+from app.core.llm import LLMModel
+from app.core.logger import base_logger
+from app.core.model_types import AnthropicModelName
+from app.operator.browser_agent.browser_controller import browser_controller
+from app.operator.browser_agent.utils import AGENT_LOG_FOLDER, create_system_prompt_class
 
 
 class BrowserAgentOutput(TypedDict):

@@ -17,7 +17,7 @@ class AnthropicModelName(StrEnum):
 
 
 class OpenAIModelName(StrEnum):
-    GPT_4O = "gpt-4o"  # alias for gpt-4o-2024-08-06
+    GPT_4O = "gpt-4o"  # alias for the latest gpt-4o model
     GPT_4O_2024_11_20 = "gpt-4o-2024-11-20"
     CHATGPT_4O_LATEST = "chatgpt-4o-latest"
 

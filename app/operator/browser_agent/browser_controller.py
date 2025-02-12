@@ -5,10 +5,10 @@ from browser_use.browser.context import BrowserContext as BrowserUseBrowserConte
 from browser_use.controller.service import Controller
 from pydantic import BaseModel
 
-from app.files import FileUtils
-from app.llm import LLMModel
-from app.logger import base_logger
-from app.utils import chunkify
+from app.core.files import FileUtils
+from app.core.llm import LLMModel
+from app.core.logger import base_logger
+from app.core.utils import chunkify
 
 logger = base_logger.getChild(__name__)
 
